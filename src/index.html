@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="import" href="inline/seo.html?__inline">
+        <link rel="stylesheet" type="text/css" href="css/index.less" />
+    </head>
+    <body>
+    	<!--分享文案-->
+    	<link rel="import" href="inline/share.html?__inline">
+    	
+    	<!--首页-->
+    	<div class="page page-1">
+    		<a href="javascript:void(0);" class="logo" title="logo">
+    			<img src="img/logo.png" alt="logo" />
+    		</a>
+    		<div class="banner"></div>
+    		<div class="btn-group">
+    			<a href="javascript:void(0);" title="画鸡" class="draw"></a>
+    			<a href="javascript:void(0);" title="看鸡" class="view"></a>
+    			<a href="javascript:void(0);" title="吃鸡" class="eat"></a>
+    		</div>
+    	</div>
+    	
+    	<!--画板-->
+    	<div class="page page-2">
+    		<a href="javascript:void(0);" class="back" data-target="1"></a>
+    		<div id="stage">
+    			<div class="chicken"></div>
+        		<div class="tools">
+        			<a href="javascript:void(0);" class="pen pen-1 on" title="小" data-value="12"></a>
+        			<a href="javascript:void(0);" class="pen pen-2" title="中" data-value="20"></a>
+        			<a href="javascript:void(0);" class="pen pen-3" title="大" data-value="28"></a>
+        			<a href="javascript:void(0);" class="eraser" title="橡皮" data-value=""></a>
+        		</div>
+        		<div class="blank">
+        			<div id="canvasContainer"></div>
+        		</div>
+        		<span class="ink"></span>
+				<div class="colors">
+					<a href="javascript:void(0);" class="color-1 on" data-value="#139823"></a>
+					<a href="javascript:void(0);" class="color-2" data-value="#e83430"></a>
+					<a href="javascript:void(0);" class="color-3" data-value="#f7c13e"></a>
+					<a href="javascript:void(0);" class="color-4" data-value="#40b5eb"></a>
+					<a href="javascript:void(0);" class="color-5" data-value="#010101"></a>
+				</div>
+        	</div>
+			<div class="btn-group">
+				<a href="javascript:void(0);" class="redraw" title="重画"></a>
+				<a href="javascript:void(0);" class="complete" title="画完抢码"></a>
+			</div>
+    	</div>
+    	
+    	<!--画作-->
+    	<div class="page page-3">
+    		<a href="javascript:void(0);" class="back" data-target="2"></a>
+    		<span class="share"></span>
+    		<div class="works">
+    			<span class="avatar">
+    				<img src="img/avatar.jpg" alt="头像" />
+    			</span>
+    			<p class="nickname">吃鸡少年</p>
+    			<img src="img/temp.png" alt="画作" />
+    			<span class="score">568<em>分</em></span>
+    		</div>
+    		<div class="btn-group">
+    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
+    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
+    		</div>
+    	</div>
+    	
+    	<!--排行榜-->
+    	<div class="page page-4">
+			<a href="javascript:void(0);" class="back" data-target="1"></a>
+			<span class="chicken"></span>
+			<img src="img/title-rank.png" alt="排行榜" class="title"/>
+			<div class="tabs">
+				<a href="javascript:void(0);" title="最热" class="hot"></a>
+				<a href="javascript:void(0);" title="最新" class="new"></a>
+			</div>
+			
+			<ul class="lists clearfix">
+				<li>
+					<div class="works">
+		    			<span class="avatar">
+		    				<img src="img/avatar.jpg" alt="头像" />
+		    			</span>
+		    			<p class="nickname">吃鸡少年</p>
+		    			<img src="img/works.png" alt="画作" />
+		    			<span class="score">568<em>分</em></span>
+		    		</div>
+		    		<div class="btn-group">
+		    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
+		    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
+		    		</div>
+				</li>
+				
+				<li>
+					<div class="works">
+		    			<span class="avatar">
+		    				<img src="img/avatar.jpg" alt="头像" />
+		    			</span>
+		    			<p class="nickname">吃鸡少年</p>
+		    			<img src="img/works.png" alt="画作" />
+		    			<span class="score">568<em>分</em></span>
+		    		</div>
+		    		<div class="btn-group">
+		    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
+		    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
+		    		</div>
+				</li>
+				
+				<li>
+					<div class="works">
+		    			<span class="avatar">
+		    				<img src="img/avatar.jpg" alt="头像" />
+		    			</span>
+		    			<p class="nickname">吃鸡少年</p>
+		    			<img src="img/works.png" alt="画作" />
+		    			<span class="score">568<em>分</em></span>
+		    		</div>
+		    		<div class="btn-group">
+		    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
+		    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
+		    		</div>
+				</li>
+				
+				<li>
+					<div class="works">
+		    			<span class="avatar">
+		    				<img src="img/avatar.jpg" alt="头像" />
+		    			</span>
+		    			<p class="nickname">吃鸡少年</p>
+		    			<img src="img/works.png" alt="画作" />
+		    			<span class="score">568<em>分</em></span>
+		    		</div>
+		    		<div class="btn-group">
+		    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
+		    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
+		    		</div>
+				</li>
+				<li>
+					<div class="works">
+		    			<span class="avatar">
+		    				<img src="img/avatar.jpg" alt="头像" />
+		    			</span>
+		    			<p class="nickname">吃鸡少年</p>
+		    			<img src="img/works.png" alt="画作" />
+		    			<span class="score">568<em>分</em></span>
+		    		</div>
+		    		<div class="btn-group">
+		    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
+		    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
+		    		</div>
+				</li>
+				
+				<li>
+					<div class="works">
+		    			<span class="avatar">
+		    				<img src="img/avatar.jpg" alt="头像" />
+		    			</span>
+		    			<p class="nickname">吃鸡少年</p>
+		    			<img src="img/works.png" alt="画作" />
+		    			<span class="score">568<em>分</em></span>
+		    		</div>
+		    		<div class="btn-group">
+		    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
+		    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
+		    		</div>
+				</li>
+			</ul>
+    	</div>
+    	
+    	<!--规则-->
+    	<div class="page page-5">
+    		<a href="javascript:void(0);" class="back" data-target="1"></a>
+    		<div class="content">
+    			<img src="img/title-rule.png" alt="画鸡规则" class="title"/>
+    			<h3>活动时间</h3>
+	    		<p class="time-1">2017年10月25日-2017年11月15日</p>
+	    		<h3>活动奖励</h3>
+	    		<p class="time-2">活动时间截止时</p>
+	    		<ul class="rewards">
+	    			<li>
+	    				<img src="img/pic.jpg" alt="吃鸡大礼" class="thumb"/>
+	    				<div class="header">
+	    					<img src="img/reward-1.png" alt="吃鸡大礼" />
+	    				</div>
+	    				<p>排行榜积分第一的画手获得  <em>激活码X1</em></p>
+	    			</li>
+	    			<li>
+	    				<img src="img/pic.jpg" alt="灵魂画手" class="thumb"/>
+	    				<div class="header">
+	    					<img src="img/reward-2.png" alt="灵魂画手" />
+	    				</div>
+	    				<p>排行榜积分2-5名的画手获得  <em>激活码X1</em></p>
+	    			</li>
+	    			<li>
+	    				<img src="img/pic.jpg" alt="天才画师" class="thumb"/>
+	    				<div class="header">
+	    					<img src="img/reward-3.png" alt="天才画师" />
+	    				</div>
+	    				<p>排行榜积分6-10名的画手获得  <em>激活码X1</em></p>
+	    			</li>
+	    			<li>
+	    				<img src="img/pic.jpg" alt="民间画家" class="thumb"/>
+	    				<div class="header">
+	    					<img src="img/reward-4.png" alt="民间画家" />
+	    				</div>
+	    				<p>参与画鸡活动的画手随机抽取50名获得  <em>激活码X1</em></p>
+	    			</li>
+	    		</ul>
+	    		
+	    		<div class="intro">
+	    			<img src="img/intro.png" alt="活动说明" class="title-intro"/>
+	    			<p>1）所有参与用户不得发布不健康内容，对不符合要求的作品将予以下架处理；</p>
+	    			<p>2）积分规则，用户点赞一次获得5积分，点锤子一次扣除2积分；每人每天可点赞15次或砸小锤子15次，对同一人作品每天仅可点赞一次和砸锤一次；</p>
+	    			<p>3）活动结束后网易终结者2手游官方会在5个工作日内通知获奖用户，请注意查收短信。</p>
+	    		</div>
+	    		<p class="tip">*活动最终解释权归网易《终结者2：审判日》（电影官方大逃杀手游）所有</p>
+    		</div>
+    		
+    	</div>
+    	
+        <!-- zepto mix NIE (最新版本）-->
+        <!--<script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>-->
+        <script charset="utf-8" src="https://nie.res.netease.com/comm/js/zepto(mixNIE).last.js"></script>
+        <script src="js/app/draw.extend.js"></script>
+        <script charset="utf-8" src="js/app/index.js"></script>
+    </body>
+</html>
