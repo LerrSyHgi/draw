@@ -17,6 +17,12 @@ function _onorientationchange(e){
     }
 }
 
+function getQueryString(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i'),
+        r = window.location.search.substr(1).match(reg);
+    return (r != null) ? unescape(r[2]) : null;
+}
+
 nie.define(function(){
 	_onorientationchange();
     
@@ -25,6 +31,18 @@ nie.define(function(){
     window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize",function(e){
     	_onorientationchange(e);
     }, false);
+    
+    var encode = encodeURIComponent,
+        isDebug = true,
+        AuthorizeServer = "http://game.163.com/weixin/authorize/?scope=snsapi_base&final_uri=",
+        // nativeUrl = 'http://10.242.9.192:8080/';
+        nativeUrl = location.href.split('?')[0];
+	
+	//判断手机系统
+	var u = navigator.userAgent;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+	var sys = isiOS==true?"ios":"android";
 	
 	function Page(){
         this.init();
@@ -32,7 +50,12 @@ nie.define(function(){
 
     Page.prototype = {
     	curPage: 1,
+    	isimg: 0,
+    	imginfo: {},
+    	userData: {},
+    	isFirst: false,
         init : function(){
+        	this.authorize();
         	this.initUI();
             this.render();
             this.bind();
@@ -48,6 +71,47 @@ nie.define(function(){
         	this.back();
         	this.rank();
         	this.rules();
+        },
+        authorize: function(){
+            var code = getQueryString('code'),
+                self = this;
+
+            if (isDebug || code) {
+                self.wxAuthrize(code);
+
+            } else {
+                self.reAuthrize();
+            }
+        },
+        reAuthrize: function() {
+            if (!isDebug) {
+                setTimeout(function() {
+                    window.location.href = AuthorizeServer + encode(nativeUrl);
+                }, 500);
+            } else {
+                console.log('Debug Mode : window.location.href is not work!');
+            }
+        },
+        wxAuthrize : function(code){
+            var that = this;
+            $.ajax({
+                url : 'http://www.huihaicenter.com/api/zjz2/api.php?action=auth',
+                dataType : 'json',
+                data : {code:code} ,
+                success : function(res){
+                    if(res.status=="true"){
+                    	that.userData = res.data;
+                    	if(res.imginfo){
+                    		that.imginfo = res.imginfo;
+                    		that.imginfo.headerimg = res.data.headerimg
+                    	}
+                    	that.isimg = res.isimg
+                    	$(".page-3 .back").attr("data-target",1);
+                    }else{
+                    	that.reAuthrize()
+                    }
+                }
+            })
         },
 	    initUI: function () {
 	    	//清空
@@ -128,18 +192,33 @@ nie.define(function(){
         createPicture: function(){
         	var that = this;
         	$(".complete").click(function(){
-               	var dataUrl = $("#canvasMain")[0].toDataURL("image/png")
+               	var dataUrl = $("#canvasMain")[0].toDataURL("image/png");
                	$.ajax({
-					type: "get",  //post
-					data: {img:dataUrl},
+               		url : 'http://www.huihaicenter.com/api/zjz2/api.php?action=img',
+					type: "post",
+					data: {
+						wxid: that.userData.wxid,
+						img:dataUrl,
+						phone: '15958283763',
+						type:sys
+					},
 					dataType: "json",
-					url: "data/data.json",
 					success: function(data){
 						if(data.status=="true"){
+							var result = that.userData;
+							result.img = data.img;
+							result.total = 0;
+							var html = template('works',result);
+							$(".page-3 .works").html(html);
 							$(".page-2").hide();
 							$(".page-3").show();
 							that.curPage = 3;
+							that.isimg = 1;
+							that.isFirst = true
+							$(".page-3 .back").attr("data-target",1);
 							$("body").off("touchmove");
+						}else{
+							alert(data.msg)
 						}
 					}
 				})
@@ -148,10 +227,22 @@ nie.define(function(){
         start: function(){
         	var that = this;
         	$(".draw").click(function(){
-        		$(".page-1").hide();
-	        	$(".page-2").show();
-	        	that._renderCanvas(); //初始化canvas
-	        	that.curPage = 2;
+        		if(!that.isimg){
+        			$(".page-1").hide();
+		        	$(".page-2").show();
+		        	that._renderCanvas(); //初始化canvas
+		        	that.curPage = 2;
+        		}else{
+        			console.log(that.isimg,that.isFirst,that.isimg&&!that.isFirst)
+        			if(that.isimg&&!that.isFirst){
+        				var result = that.imginfo;
+						var html = template('works',result);
+						$(".page-3 .works").html(html);
+        			}
+        			$(".page-1").hide();
+		        	$(".page-3").show();
+		        	that.curPage = 3;
+        		}
         	})
         },
         back: function(){

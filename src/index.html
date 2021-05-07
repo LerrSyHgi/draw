@@ -55,12 +55,7 @@
     		<a href="javascript:void(0);" class="back" data-target="2"></a>
     		<span class="share"></span>
     		<div class="works">
-    			<span class="avatar">
-    				<img src="img/avatar.jpg" alt="头像" />
-    			</span>
-    			<p class="nickname">吃鸡少年</p>
-    			<img src="img/temp.png" alt="画作" />
-    			<span class="score">568<em>分</em></span>
+    			
     		</div>
     		<div class="btn-group">
     			<a href="javascript:void(0);" class="zan" title="点赞"></a>
@@ -221,10 +216,21 @@
     		
     	</div>
     	
+    	<!--我的画作模板-->
+    	<script type="text/html" id="works">
+			<span class="avatar">
+				<img src="{{headerimg}}" alt="头像" />
+			</span>
+			<p class="nickname">{{nickname}}</p>
+			<img src="{{img}}" alt="画作" class="result"/>
+			<span class="score">{{total}}<em>分</em></span>
+		</script>
+    	
         <!-- zepto mix NIE (最新版本）-->
         <!--<script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>-->
         <script charset="utf-8" src="https://nie.res.netease.com/comm/js/zepto(mixNIE).last.js"></script>
         <script src="js/app/draw.extend.js"></script>
+        <script src="js/app/template.js"></script>
         <script charset="utf-8" src="js/app/index.js"></script>
     </body>
 </html>
