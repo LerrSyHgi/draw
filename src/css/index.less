@@ -564,6 +564,8 @@ img{
         text-align: center;
         padding-top: 0.24rem;
         padding-bottom: 0.43rem;
+        position: relative;
+        z-index: 2;
         a{
             display: inline-block;
             width: 2.62rem;
@@ -581,10 +583,9 @@ img{
         padding-left: 0.45rem;
         padding-bottom: 0.2rem;
         li{
-            margin-bottom: 1.42rem;
+            margin-bottom: 0.4rem;
             float: left;
             width: 3.2rem;
-            height: 3.45rem;
             &:nth-child(2n+1){
                 margin-right: 0.19rem;
             }
@@ -594,6 +595,9 @@ img{
         width: 3.2rem;
         height: 3.45rem;
         position: relative;
+        background: url(../img/works.png) no-repeat;
+        box-sizing: border-box;
+        padding: 0.47rem 0.22rem 0.26rem;
         img{
             width: 100%;
         }
@@ -607,6 +611,7 @@ img{
             z-index: 2;
             border: 0.06rem solid #000;
             border-radius: 0.06rem;
+            background: #fff;
         }
         .nickname{
             position: absolute;
@@ -854,6 +859,14 @@ img{
         color: #424242;
         text-align: left;
     }
+}
+
+.nodata{
+    display: none;
+    font-size: 0.3rem;
+    height: 0.45rem;
+    line-height: 0.45rem;
+    padding-bottom: 0.5rem;
 }
 
 @media only screen

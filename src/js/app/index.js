@@ -51,14 +51,18 @@ nie.define(function(){
     Page.prototype = {
     	curPage: 1,
     	isimg: 0,
-    	imginfo: {},
+    	imginfo: null,
     	userData: {},
-    	isFirst: false,
+    	hotPage: 1,
+    	newPage: 1,
+    	rankType: 'hot',
         init : function(){
         	this.authorize();
         	this.initUI();
             this.render();
             this.bind();
+            this.loadHot(1);
+            this.loadNew(1);
         },
         render : function(){
             var that = this;
@@ -71,6 +75,9 @@ nie.define(function(){
         	this.back();
         	this.rank();
         	this.rules();
+        	this.tabs();
+        	this.bindScroll();
+        	this.binLikes();
         },
         authorize: function(){
             var code = getQueryString('code'),
@@ -104,6 +111,8 @@ nie.define(function(){
                     	if(res.imginfo){
                     		that.imginfo = res.imginfo;
                     		that.imginfo.headerimg = res.data.headerimg
+							var html = template('works',that.imginfo);
+							$(".page-3 .result-box").html(html);
                     	}
                     	that.isimg = res.isimg
                     	$(".page-3 .back").attr("data-target",1);
@@ -209,12 +218,10 @@ nie.define(function(){
 							result.img = data.img;
 							result.total = 0;
 							var html = template('works',result);
-							$(".page-3 .works").html(html);
+							$(".page-3 .result-box").html(html);
 							$(".page-2").hide();
 							$(".page-3").show();
 							that.curPage = 3;
-							that.isimg = 1;
-							that.isFirst = true
 							$(".page-3 .back").attr("data-target",1);
 							$("body").off("touchmove");
 						}else{
@@ -233,12 +240,6 @@ nie.define(function(){
 		        	that._renderCanvas(); //初始化canvas
 		        	that.curPage = 2;
         		}else{
-        			console.log(that.isimg,that.isFirst,that.isimg&&!that.isFirst)
-        			if(that.isimg&&!that.isFirst){
-        				var result = that.imginfo;
-						var html = template('works',result);
-						$(".page-3 .works").html(html);
-        			}
         			$(".page-1").hide();
 		        	$(".page-3").show();
 		        	that.curPage = 3;
@@ -274,6 +275,99 @@ nie.define(function(){
         		$(".page-5").show();
         		that.curPage = 5;
         	});
+        },
+        tabs: function(){
+        	var that = this;
+        	$(".tabs a").click(function(){
+        		var type = $(this).data("type");
+        		that.rankType = type;
+        		var index = $(this).index();
+        		$(".tab-container").eq(index).show();
+        		$(".tab-container").eq(index).siblings().hide();
+        	})
+        },
+        loadHot: function(page){
+        	var that = this;
+        	$.ajax({
+           		url : 'http://www.huihaicenter.com/api/zjz2/api.php?action=list',
+				type: "get",
+				data: {
+					sort:'hot',
+					page: page
+				},
+				dataType: "json",
+				success: function(result){
+					if(result.data.length==0){
+						$(".rank-box .lists").eq(0).next().show();
+						that.hotPage = that.hotPage-1;
+					}
+					var html = template('listTpl',result);
+					$(".rank-box .lists").eq(0).append(html);
+				}
+			})
+        },
+        loadNew: function(page){
+        	var that = this;
+        	$.ajax({
+           		url : 'http://www.huihaicenter.com/api/zjz2/api.php?action=list',
+				type: "get",
+				data: {
+					sort:'new',
+					page: page
+				},
+				dataType: "json",
+				success: function(result){
+					if(result.data.length==0){
+						$(".rank-box .lists").eq(1).next().show();
+						that.newPage = that.newPage-1;
+					}
+					var html = template('listTpl',result);
+					$(".rank-box .lists").eq(1).append(html);
+				}
+			})
+        },
+        bindScroll: function(){
+        	var that = this;
+        	$(window).scroll(function () {
+        		if(that.curPage==4){
+        			if ($(window).scrollTop() + $(window).height() >= $(document).height()) {  
+				        if(that.rankType=="hot"){
+				        	that.hotPage = that.hotPage+1;
+				        	that.loadHot(that.hotPage);
+				        }else{
+				        	that.newPage = that.newPage+1;
+				        	that.loadNew(that.newPage);
+				        }
+				    }
+        		}
+			}); 
+        },
+        binLikes: function(){
+        	var that = this;
+        	$(document).on("click",".like",function(){
+        		var self = this;
+        		var type = $(this).data("type");
+        		var id = $(this).data("wid");
+        		var wxid = that.userData.wxid;
+        		$.ajax({
+	           		url : 'http://www.huihaicenter.com/api/zjz2/api.php?action=vote',
+					type: "get",
+					data: {
+						wxid: wxid,
+						id: id,
+						type: type
+					},
+					dataType: "json",
+					success: function(result){
+						if(result.status=="true"){
+							var total = result.num;
+							$("[data-cid='"+id+"']").find(".score").html(total+'<em>分</em>');
+						}else{
+							alert(result.msg)	
+						}
+					}
+				})
+        	})
         }
     }
 

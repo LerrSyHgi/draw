@@ -54,12 +54,8 @@
     	<div class="page page-3">
     		<a href="javascript:void(0);" class="back" data-target="2"></a>
     		<span class="share"></span>
-    		<div class="works">
+    		<div class="result-box">
     			
-    		</div>
-    		<div class="btn-group">
-    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
-    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
     		</div>
     	</div>
     	
@@ -69,100 +65,24 @@
 			<span class="chicken"></span>
 			<img src="img/title-rank.png" alt="排行榜" class="title"/>
 			<div class="tabs">
-				<a href="javascript:void(0);" title="最热" class="hot"></a>
-				<a href="javascript:void(0);" title="最新" class="new"></a>
+				<a href="javascript:void(0);" title="最热" class="hot" data-type="hot"></a>
+				<a href="javascript:void(0);" title="最新" class="new" data-type="new"></a>
 			</div>
 			
-			<ul class="lists clearfix">
-				<li>
-					<div class="works">
-		    			<span class="avatar">
-		    				<img src="img/avatar.jpg" alt="头像" />
-		    			</span>
-		    			<p class="nickname">吃鸡少年</p>
-		    			<img src="img/works.png" alt="画作" />
-		    			<span class="score">568<em>分</em></span>
-		    		</div>
-		    		<div class="btn-group">
-		    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
-		    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
-		    		</div>
-				</li>
+			<div class="rank-box">
+				<div class="tab-container">
+					<ul class="lists clearfix"></ul>
+					<p class="nodata">已经到底啦</p>
+				</div>
 				
-				<li>
-					<div class="works">
-		    			<span class="avatar">
-		    				<img src="img/avatar.jpg" alt="头像" />
-		    			</span>
-		    			<p class="nickname">吃鸡少年</p>
-		    			<img src="img/works.png" alt="画作" />
-		    			<span class="score">568<em>分</em></span>
-		    		</div>
-		    		<div class="btn-group">
-		    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
-		    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
-		    		</div>
-				</li>
+				<div class="tab-container" style="display: none;">
+					<ul class="lists clearfix"></ul>
+					<p class="nodata">已经到底啦</p>
+				</div>
 				
-				<li>
-					<div class="works">
-		    			<span class="avatar">
-		    				<img src="img/avatar.jpg" alt="头像" />
-		    			</span>
-		    			<p class="nickname">吃鸡少年</p>
-		    			<img src="img/works.png" alt="画作" />
-		    			<span class="score">568<em>分</em></span>
-		    		</div>
-		    		<div class="btn-group">
-		    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
-		    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
-		    		</div>
-				</li>
-				
-				<li>
-					<div class="works">
-		    			<span class="avatar">
-		    				<img src="img/avatar.jpg" alt="头像" />
-		    			</span>
-		    			<p class="nickname">吃鸡少年</p>
-		    			<img src="img/works.png" alt="画作" />
-		    			<span class="score">568<em>分</em></span>
-		    		</div>
-		    		<div class="btn-group">
-		    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
-		    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
-		    		</div>
-				</li>
-				<li>
-					<div class="works">
-		    			<span class="avatar">
-		    				<img src="img/avatar.jpg" alt="头像" />
-		    			</span>
-		    			<p class="nickname">吃鸡少年</p>
-		    			<img src="img/works.png" alt="画作" />
-		    			<span class="score">568<em>分</em></span>
-		    		</div>
-		    		<div class="btn-group">
-		    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
-		    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
-		    		</div>
-				</li>
-				
-				<li>
-					<div class="works">
-		    			<span class="avatar">
-		    				<img src="img/avatar.jpg" alt="头像" />
-		    			</span>
-		    			<p class="nickname">吃鸡少年</p>
-		    			<img src="img/works.png" alt="画作" />
-		    			<span class="score">568<em>分</em></span>
-		    		</div>
-		    		<div class="btn-group">
-		    			<a href="javascript:void(0);" class="zan" title="点赞"></a>
-		    			<a href="javascript:void(0);" class="chui" title="锤子"></a>
-		    		</div>
-				</li>
-			</ul>
+			</div>
+			
+			
     	</div>
     	
     	<!--规则-->
@@ -218,12 +138,39 @@
     	
     	<!--我的画作模板-->
     	<script type="text/html" id="works">
-			<span class="avatar">
-				<img src="{{headerimg}}" alt="头像" />
-			</span>
-			<p class="nickname">{{nickname}}</p>
-			<img src="{{img}}" alt="画作" class="result"/>
-			<span class="score">{{total}}<em>分</em></span>
+    		<div class="works" data-cid="{{id}}">
+    			<span class="avatar">
+					<img src="{{headerimg}}"/>
+				</span>
+				<p class="nickname">{{nickname}}</p>
+				<img src="{{img}}" alt="画作" class="result"/>
+				<span class="score">{{total}}<em>分</em></span>
+    		</div>
+    		<div class="btn-group">
+    			<a href="javascript:void(0);" class="zan like" title="点赞" data-type="1" data-wid="{{id}}"></a>
+    			<a href="javascript:void(0);" class="chui like" title="锤子" data-type="2" data-wid="{{id}}"></a>
+    		</div>
+			
+		</script>
+		
+		<!--列表模板-->
+		<script type="text/html" id="listTpl">
+			{{each data as value i}}
+			<li data-cid="{{value.id}}">
+				<div class="works">
+	    			<span class="avatar">
+	    				<img src="{{value.headerimg}}"/>
+	    			</span>
+	    			<p class="nickname">{{value.nickname}}</p>
+	    			<img src="{{value.img}}" alt="画作" />
+	    			<span class="score">{{value.total}}<em>分</em></span>
+	    		</div>
+	    		<div class="btn-group">
+	    			<a href="javascript:void(0);" class="zan like" title="点赞" data-type="1" data-wid="{{value.id}}"></a>
+	    			<a href="javascript:void(0);" class="chui like" title="锤子" data-type="2" data-wid="{{value.id}}"></a>
+	    		</div>
+			</li>
+			{{/each}}
 		</script>
     	
         <!-- zepto mix NIE (最新版本）-->
