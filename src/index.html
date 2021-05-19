@@ -9,169 +9,23 @@
     	<link rel="import" href="inline/share.html?__inline">
     	
     	<!--首页-->
-    	<div class="page page-1">
-    		<a href="javascript:void(0);" class="logo" title="logo">
-    			<img src="img/logo.png" alt="logo" />
-    		</a>
-    		<div class="banner"></div>
-    		<div class="btn-group">
-    			<a href="javascript:void(0);" title="画鸡" class="draw"></a>
-    			<a href="javascript:void(0);" title="看鸡" class="view"></a>
-    			<a href="javascript:void(0);" title="吃鸡" class="eat"></a>
-    		</div>
-    	</div>
+    	<link rel="import" href="inline/page-1.html?__inline">
     	
     	<!--画板-->
-    	<div class="page page-2">
-    		<a href="javascript:void(0);" class="back" data-target="1"></a>
-    		<div id="stage">
-    			<div class="chicken"></div>
-        		<div class="tools">
-        			<a href="javascript:void(0);" class="pen pen-1 on" title="小" data-value="12"></a>
-        			<a href="javascript:void(0);" class="pen pen-2" title="中" data-value="20"></a>
-        			<a href="javascript:void(0);" class="pen pen-3" title="大" data-value="28"></a>
-        			<a href="javascript:void(0);" class="eraser" title="橡皮" data-value=""></a>
-        		</div>
-        		<div class="blank">
-        			<div id="canvasContainer"></div>
-        		</div>
-        		<span class="ink"></span>
-				<div class="colors">
-					<a href="javascript:void(0);" class="color-1 on" data-value="#139823"></a>
-					<a href="javascript:void(0);" class="color-2" data-value="#e83430"></a>
-					<a href="javascript:void(0);" class="color-3" data-value="#f7c13e"></a>
-					<a href="javascript:void(0);" class="color-4" data-value="#40b5eb"></a>
-					<a href="javascript:void(0);" class="color-5" data-value="#010101"></a>
-				</div>
-        	</div>
-			<div class="btn-group">
-				<a href="javascript:void(0);" class="redraw" title="重画"></a>
-				<a href="javascript:void(0);" class="complete" title="画完抢码"></a>
-			</div>
-    	</div>
+    	<link rel="import" href="inline/page-2.html?__inline">
     	
     	<!--画作-->
-    	<div class="page page-3">
-    		<a href="javascript:void(0);" class="back" data-target="2"></a>
-    		<span class="share"></span>
-    		<div class="result-box">
-    			
-    		</div>
-    	</div>
+    	<link rel="import" href="inline/page-3.html?__inline">
     	
     	<!--排行榜-->
-    	<div class="page page-4">
-			<a href="javascript:void(0);" class="back" data-target="1"></a>
-			<span class="chicken"></span>
-			<img src="img/title-rank.png" alt="排行榜" class="title"/>
-			<div class="tabs">
-				<a href="javascript:void(0);" title="最热" class="hot" data-type="hot"></a>
-				<a href="javascript:void(0);" title="最新" class="new" data-type="new"></a>
-			</div>
-			
-			<div class="rank-box">
-				<div class="tab-container">
-					<ul class="lists clearfix"></ul>
-					<p class="nodata">已经到底啦</p>
-				</div>
-				
-				<div class="tab-container" style="display: none;">
-					<ul class="lists clearfix"></ul>
-					<p class="nodata">已经到底啦</p>
-				</div>
-				
-			</div>
-			
-			
-    	</div>
+    	<link rel="import" href="inline/page-4.html?__inline">
     	
     	<!--规则-->
-    	<div class="page page-5">
-    		<a href="javascript:void(0);" class="back" data-target="1"></a>
-    		<div class="content">
-    			<img src="img/title-rule.png" alt="画鸡规则" class="title"/>
-    			<h3>活动时间</h3>
-	    		<p class="time-1">2017年10月25日-2017年11月15日</p>
-	    		<h3>活动奖励</h3>
-	    		<p class="time-2">活动时间截止时</p>
-	    		<ul class="rewards">
-	    			<li>
-	    				<img src="img/pic.jpg" alt="吃鸡大礼" class="thumb"/>
-	    				<div class="header">
-	    					<img src="img/reward-1.png" alt="吃鸡大礼" />
-	    				</div>
-	    				<p>排行榜积分第一的画手获得  <em>激活码X1</em></p>
-	    			</li>
-	    			<li>
-	    				<img src="img/pic.jpg" alt="灵魂画手" class="thumb"/>
-	    				<div class="header">
-	    					<img src="img/reward-2.png" alt="灵魂画手" />
-	    				</div>
-	    				<p>排行榜积分2-5名的画手获得  <em>激活码X1</em></p>
-	    			</li>
-	    			<li>
-	    				<img src="img/pic.jpg" alt="天才画师" class="thumb"/>
-	    				<div class="header">
-	    					<img src="img/reward-3.png" alt="天才画师" />
-	    				</div>
-	    				<p>排行榜积分6-10名的画手获得  <em>激活码X1</em></p>
-	    			</li>
-	    			<li>
-	    				<img src="img/pic.jpg" alt="民间画家" class="thumb"/>
-	    				<div class="header">
-	    					<img src="img/reward-4.png" alt="民间画家" />
-	    				</div>
-	    				<p>参与画鸡活动的画手随机抽取50名获得  <em>激活码X1</em></p>
-	    			</li>
-	    		</ul>
-	    		
-	    		<div class="intro">
-	    			<img src="img/intro.png" alt="活动说明" class="title-intro"/>
-	    			<p>1）所有参与用户不得发布不健康内容，对不符合要求的作品将予以下架处理；</p>
-	    			<p>2）积分规则，用户点赞一次获得5积分，点锤子一次扣除2积分；每人每天可点赞15次或砸小锤子15次，对同一人作品每天仅可点赞一次和砸锤一次；</p>
-	    			<p>3）活动结束后网易终结者2手游官方会在5个工作日内通知获奖用户，请注意查收短信。</p>
-	    		</div>
-	    		<p class="tip">*活动最终解释权归网易《终结者2：审判日》（电影官方大逃杀手游）所有</p>
-    		</div>
-    		
-    	</div>
+    	<link rel="import" href="inline/page-5.html?__inline">
     	
-    	<!--我的画作模板-->
-    	<script type="text/html" id="works">
-    		<div class="works" data-cid="{{id}}">
-    			<span class="avatar">
-					<img src="{{headerimg}}"/>
-				</span>
-				<p class="nickname">{{nickname}}</p>
-				<img src="{{img}}" alt="画作" class="result"/>
-				<span class="score">{{total}}<em>分</em></span>
-    		</div>
-    		<div class="btn-group">
-    			<a href="javascript:void(0);" class="zan like" title="点赞" data-type="1" data-wid="{{id}}"></a>
-    			<a href="javascript:void(0);" class="chui like" title="锤子" data-type="2" data-wid="{{id}}"></a>
-    		</div>
-			
-		</script>
-		
-		<!--列表模板-->
-		<script type="text/html" id="listTpl">
-			{{each data as value i}}
-			<li data-cid="{{value.id}}">
-				<div class="works">
-	    			<span class="avatar">
-	    				<img src="{{value.headerimg}}"/>
-	    			</span>
-	    			<p class="nickname">{{value.nickname}}</p>
-	    			<img src="{{value.img}}" alt="画作" />
-	    			<span class="score">{{value.total}}<em>分</em></span>
-	    		</div>
-	    		<div class="btn-group">
-	    			<a href="javascript:void(0);" class="zan like" title="点赞" data-type="1" data-wid="{{value.id}}"></a>
-	    			<a href="javascript:void(0);" class="chui like" title="锤子" data-type="2" data-wid="{{value.id}}"></a>
-	    		</div>
-			</li>
-			{{/each}}
-		</script>
+    	<!--数据模板-->
+    	<link rel="import" href="inline/template.html?__inline">
+    	
     	
         <!-- zepto mix NIE (最新版本）-->
         <!--<script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>-->

@@ -869,6 +869,56 @@ img{
     padding-bottom: 0.5rem;
 }
 
+.layer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  display: none;
+  background: rgba(0,0,0,0.7);
+  top: 0;
+  left: 0;
+  &.show{
+      display: block;
+  }
+}
+
+.phone-box{
+    position: absolute;
+    width: 6.68rem;
+    height: 5.57rem;
+    left: 50%;
+    top: 50%;
+    margin: -2.78rem 0 0 -3.34rem;
+    background: url(../img/layer.png) no-repeat;
+    text-align: center;
+    font-size: 0;
+    p{
+        font-size: 0.5rem;
+        color: #000;
+        height: 0.8rem;
+        line-height: 0.8rem;
+        padding: 0.87rem 0 0.23rem;
+    }
+    input{
+        width: 5.96rem;
+        height: 0.72rem;
+        line-height: 0.44rem;
+        border: 0.03rem solid #000;
+        box-sizing: border-box;
+        font-size: 0.3rem;
+        text-align: left;
+        padding: 0.11rem 0.2rem;
+    }
+    .subForm{
+        display: inline-block;
+        margin-top: 0.5rem;
+        width: 3.32rem;
+        height: 1.31rem;
+        background: url(../img/submit.png) no-repeat;
+    }
+}
+
 @media only screen
 and (min-device-width: 320px)
 and (max-device-width: 480px)

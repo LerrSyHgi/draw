@@ -70,7 +70,7 @@ nie.define(function(){
             that.renderPage();
         },
         bind : function(){
-        	this.createPicture();
+        	this.showLayer();
         	this.start();
         	this.back();
         	this.rank();
@@ -78,6 +78,7 @@ nie.define(function(){
         	this.tabs();
         	this.bindScroll();
         	this.binLikes();
+        	this.bindSubmit();
         },
         authorize: function(){
             var code = getQueryString('code'),
@@ -173,14 +174,13 @@ nie.define(function(){
 			var share_url = $("#share_url").text();
 			var share_desc = $("#share_desc").text();
 			var share_pic = $("#share_pic").attr("src");
-			var share_pic2 = $("#share_pic2").attr("src");
 			var mbshare = nie.require("nie.util.mobiShare2");
 			
 			mbshare.init({
 				title: share_title,
 				desc: share_desc,
 				url: share_url,
-				imgurl: share_pic2,
+				imgurl: share_pic,
 				circleTitle: share_title,
 				guideText: "分享给好友",
 				qrcodeIcon: share_pic,
@@ -198,37 +198,9 @@ nie.define(function(){
 				event.preventDefault;
 			}, false)
         },
-        createPicture: function(){
-        	var that = this;
+        showLayer: function(){
         	$(".complete").click(function(){
-               	var dataUrl = $("#canvasMain")[0].toDataURL("image/png");
-               	$.ajax({
-               		url : 'http://www.huihaicenter.com/api/zjz2/api.php?action=img',
-					type: "post",
-					data: {
-						wxid: that.userData.wxid,
-						img:dataUrl,
-						phone: '15958283763',
-						type:sys
-					},
-					dataType: "json",
-					success: function(data){
-						if(data.status=="true"){
-							var result = that.userData;
-							result.img = data.img;
-							result.total = 0;
-							var html = template('works',result);
-							$(".page-3 .result-box").html(html);
-							$(".page-2").hide();
-							$(".page-3").show();
-							that.curPage = 3;
-							$(".page-3 .back").attr("data-target",1);
-							$("body").off("touchmove");
-						}else{
-							alert(data.msg)
-						}
-					}
-				})
+        		$(".layer").addClass("show");
         	})
         },
         start: function(){
@@ -365,6 +337,51 @@ nie.define(function(){
 						}else{
 							alert(result.msg)	
 						}
+					}
+				})
+        	})
+        },
+        bindSubmit: function(){
+        	var that = this;
+        	$(".subForm").click(function(){
+        		var phone = $("#phone").val();
+	        	if(phone==""){
+					alert("请输入手机号");
+					return;
+				}
+				if (!/^1[34578]\d{9}/.test(phone)) {
+					alert('请输入正确的手机号码');
+					return;
+				}
+				
+				var dataUrl = $("#canvasMain")[0].toDataURL("image/png");
+				
+               	$.ajax({
+               		url : 'http://www.huihaicenter.com/api/zjz2/api.php?action=img',
+					type: "post",
+					data: {
+						wxid: that.userData.wxid,
+						img:dataUrl,
+						phone: phone,
+						type:sys
+					},
+					dataType: "json",
+					success: function(data){
+						if(data.status=="true"){
+							var result = that.userData;
+							result.img = data.img;
+							result.total = 0;
+							var html = template('works',result);
+							$(".page-3 .result-box").html(html);
+							$(".page-2").hide();
+							$(".page-3").show();
+							that.curPage = 3;
+							$(".page-3 .back").attr("data-target",1);
+							$("body").off("touchmove");
+						}else{
+							alert(data.msg)
+						}
+						$(".layer").removeClass("show");
 					}
 				})
         	})

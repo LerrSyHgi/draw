@@ -1,0 +1,45 @@
+<!--我的画作模板-->
+<script type="text/html" id="works">
+	<div class="works" data-cid="{{id}}">
+		<span class="avatar">
+			<img src="{{headerimg}}"/>
+		</span>
+		<p class="nickname">{{nickname}}</p>
+		<img src="{{img}}" alt="画作" class="result"/>
+		<span class="score">{{total}}<em>分</em></span>
+	</div>
+	<div class="btn-group">
+		<a href="javascript:void(0);" class="zan like" title="点赞" data-type="1" data-wid="{{id}}"></a>
+		<a href="javascript:void(0);" class="chui like" title="锤子" data-type="2" data-wid="{{id}}"></a>
+	</div>
+	
+</script>
+
+<!--列表模板-->
+<script type="text/html" id="listTpl">
+	{{each data as value i}}
+	<li data-cid="{{value.id}}">
+		<div class="works">
+			<span class="avatar">
+				<img src="{{value.headerimg}}"/>
+			</span>
+			<p class="nickname">{{value.nickname}}</p>
+			<img src="{{value.img}}" alt="画作" />
+			<span class="score">{{value.total}}<em>分</em></span>
+		</div>
+		<div class="btn-group">
+			<a href="javascript:void(0);" class="zan like" title="点赞" data-type="1" data-wid="{{value.id}}"></a>
+			<a href="javascript:void(0);" class="chui like" title="锤子" data-type="2" data-wid="{{value.id}}"></a>
+		</div>
+	</li>
+	{{/each}}
+</script>
+
+<!--手机号弹窗-->
+<div class="layer">
+	<div class="phone-box">
+		<p>请输入手机号</p>
+		<input type="tel" id="phone" maxlength="11"/>
+		<a href="javascript:void(0);" title="提交" class="subForm"></a>
+	</div>
+</div>
