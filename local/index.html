@@ -23,7 +23,7 @@
     	<div id="share_content" style="display: none;">
     <h1 id="share_title" pub-name="分享标题">画鸡吃鸡</h1>
     <div id="share_url" pub-name="分享链接"></div>
-    <img id="share_pic" pub-name="分享图片" src="https://webinput.nie.netease.com/img/dh2/icon.png" alt="分享图">
+    <img id="share_pic" pub-name="分享图片" src="http://www.huihaicenter.com/www/test/20171026/img/avatar.jpg" alt="分享图">
     <div id="share_desc" pub-name="分享内容">画鸡吃鸡</div>
 </div>
 
@@ -203,6 +203,9 @@
 <div class="layer">
 	<div class="phone-box">
 		<p>请输入手机号</p>
+		<p class="tip">
+			活动期间每天将会抽取100名玩家<br>通过短信发送限量激活码
+		</p>
 		<input type="tel" id="phone" maxlength="11">
 		<a href="javascript:void(0);" title="提交" class="subForm"></a>
 	</div>
@@ -211,6 +214,8 @@
     	
     	
         <!-- zepto mix NIE (最新版本）-->
+        <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+        <script>document.write('<script src="http://www.huihaicenter.com/api/wx/jssdk.php?url=' + encodeURIComponent(window.location.href) + '"><\/script>');</script>
         <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
         <!--<script charset="utf-8" src="https://nie.res.netease.com/comm/js/zepto(mixNIE).last.js"></script>-->
         <script src="js/app/draw.extend.js"></script>

@@ -36,7 +36,7 @@ $(function(){
         isDebug = false,
         AuthorizeServer = "http://game.163.com/weixin/authorize/?scope=snsapi_base&final_uri=",
         // nativeUrl = 'http://10.242.9.192:8080/';
-        nativeUrl = location.href.split('?')[0];
+        nativeUrl = location.href;
 	
 	//判断手机系统
 	var u = navigator.userAgent;
@@ -49,6 +49,7 @@ $(function(){
     }
 
     Page.prototype = {
+    	isShare: false,
     	curPage: 1,
     	isimg: 0,
     	imginfo: null,
@@ -66,8 +67,6 @@ $(function(){
         },
         render : function(){
             var that = this;
-            that._renderShare();
-            that.renderPage();
         },
         bind : function(){
         	this.showLayer();
@@ -109,11 +108,20 @@ $(function(){
                 success : function(res){
                     if(res.status=="true"){
                     	that.userData = res.data;
+                    	that._renderShare();
                     	if(res.imginfo){
+                    		var wxid = getQueryString('wxid');
                     		that.imginfo = res.imginfo;
                     		that.imginfo.headerimg = res.data.headerimg
-							var html = template('works',that.imginfo);
-							$(".page-3 .result-box").html(html);
+                    		if(wxid!==null&&wxid!==res.data.wxid){
+                    			that.isShare = true;
+                    			that.getWorks(wxid);
+                    		}else{
+                    			var html = template('works',that.imginfo);
+								$(".page-3 .result-box").html(html);
+								that.renderPage();
+                    		}
+							
                     	}
                     	that.isimg = res.isimg
                     	$(".page-3 .back").attr("data-target",1);
@@ -122,6 +130,27 @@ $(function(){
                     }
                 }
             })
+        },
+        getWorks: function(wxid){
+        	//根据wxid获取作品
+        	var that = this;
+        	$.ajax({
+        		type:"get",
+        		url:"http://www.huihaicenter.com/api/zjz2/api.php?action=getimg",
+        		dataType: "json",
+        		data: {
+        			wxid: wxid
+        		},
+        		success: function(res){
+        			if(res.status=="true"){
+        				that.curPage = 3;
+        				var html = template('works',res.imginfo);
+        				$(".share").hide();
+						$(".page-3 .result-box").html(html);
+        			}
+        			that.renderPage();
+        		}
+        	});
         },
 	    initUI: function () {
 	    	//清空
@@ -170,11 +199,13 @@ $(function(){
 	    	$(".page-"+this.curPage).show();
 	    },
         _renderShare : function(){
-			/*var share_title = $("#share_title").text();
-			var share_url = $("#share_url").text();
+        	//console.log(this.userData.wxid)
+        	//console.log(window.location.href.split("&")[0]+'&wxid='+this.userData.wxid)
+			var share_title = $("#share_title").text();
+			var share_url = window.location.href.split("&")[0]+'&wxid='+this.userData.wxid;
 			var share_desc = $("#share_desc").text();
 			var share_pic = $("#share_pic").attr("src");
-			var mbshare = nie.require("nie.util.mobiShare2");
+			/*var mbshare = nie.require("nie.util.mobiShare2");
 			
 			mbshare.init({
 				title: share_title,
@@ -191,6 +222,33 @@ $(function(){
 				
 				}
 			});*/
+			wx.config(wx_config);
+			wx.ready(function(){
+				var shareMeta = {
+					title: share_title,
+				    desc: share_desc,
+				    link: share_url,
+				    imgUrl: share_pic
+				}
+				var shareMetaTimeline = {
+					title: share_title,
+					link: share_url,
+					imgUrl: share_pic
+				}
+				//分享到朋友圈
+				wx.onMenuShareTimeline($.extend(shareMetaTimeline,{
+					success: function () {
+				        //_czc.push(﻿['_trackEvent', 'share', '分享到朋友圈']);
+				    }
+				}));
+		
+				//分享给朋友
+				wx.onMenuShareAppMessage($.extend(shareMeta,{
+					success: function () {
+				        //_czc.push(﻿['_trackEvent', 'share', '分享给好友']);
+				    }
+				}));
+			})
         },
         _renderCanvas: function() {
         	$.jrDraw.init("#canvasContainer");
@@ -212,8 +270,12 @@ $(function(){
 		        	that._renderCanvas(); //初始化canvas
 		        	that.curPage = 2;
         		}else{
+        			if(that.isShare){
+        				var html = template('works',that.imginfo);
+						$(".page-3 .result-box").html(html);
+        			}
         			$(".page-1").hide();
-		        	$(".page-3").show();
+	        		$(".page-3").show();
 		        	that.curPage = 3;
         		}
         	})
@@ -230,6 +292,7 @@ $(function(){
         		}else{
         			$("body").off("touchmove");
         		}
+        		$(".share").show();
         	});
         },
         rank: function(){
