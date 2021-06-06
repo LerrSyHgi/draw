@@ -107,10 +107,12 @@ $(function(){
                 data : {code:code} ,
                 success : function(res){
                     if(res.status=="true"){
+                    	var wxid = getQueryString('wxid');    //分享用户wxid
+                    	that.isimg = res.isimg
                     	that.userData = res.data;
                     	that._renderShare();
                     	if(res.imginfo){
-                    		var wxid = getQueryString('wxid');
+                    		//用户已画过
                     		that.imginfo = res.imginfo;
                     		that.imginfo.headerimg = res.data.headerimg
                     		if(wxid!==null&&wxid!==res.data.wxid){
@@ -121,10 +123,15 @@ $(function(){
 								$(".page-3 .result-box").html(html);
 								that.renderPage();
                     		}
-							
+                    	}else{
+                    		if(wxid!==null&&wxid!==res.data.wxid){
+                    			that.isShare = true;
+                    			that.getWorks(wxid);
+                    		}else{
+                    			that.renderPage();
+                    		}
                     	}
-                    	that.isimg = res.isimg
-                    	$(".page-3 .back").attr("data-target",1);
+						
                     }else{
                     	that.reAuthrize()
                     }
@@ -148,6 +155,7 @@ $(function(){
         				$(".share").hide();
 						$(".page-3 .result-box").html(html);
         			}
+        			$(".page-3 .back").attr("data-target",1);
         			that.renderPage();
         		}
         	});
@@ -258,7 +266,10 @@ $(function(){
         },
         showLayer: function(){
         	$(".complete").click(function(){
-        		$(".layer").addClass("show");
+        		var r=confirm("是否确认保存");
+        		if(r){
+        			$(".layer").addClass("show");
+        		}
         	})
         },
         start: function(){
@@ -419,6 +430,8 @@ $(function(){
 				
 				var dataUrl = $("#canvasMain")[0].toDataURL("image/png");
 				
+				alert(dataUrl)
+				
                	$.ajax({
                		url : 'http://www.huihaicenter.com/api/zjz2/api.php?action=img',
 					type: "post",
@@ -431,9 +444,12 @@ $(function(){
 					dataType: "json",
 					success: function(data){
 						if(data.status=="true"){
+							that.isimg = 1;
 							var result = that.userData;
 							result.img = data.img;
+							result.id = data.id;
 							result.total = 0;
+							that.imginfo = result;
 							var html = template('works',result);
 							$(".page-3 .result-box").html(html);
 							$(".page-2").hide();
