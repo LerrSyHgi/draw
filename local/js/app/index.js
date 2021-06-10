@@ -428,9 +428,45 @@ $(function(){
 					return;
 				}
 				
-				var dataUrl = $("#canvasMain")[0].toDataURL("image/png");
+				html2canvas($("#canvasContainer"), { 
+                    onrendered: function(canvas) {
+                        //生成base64图片数据  
+                        var dataUrl = canvas.toDataURL("image/png");
+                        $.ajax({
+		               		url : 'http://www.huihaicenter.com/api/zjz2/api.php?action=img',
+							type: "post",
+							data: {
+								wxid: that.userData.wxid,
+								img:dataUrl,
+								phone: phone,
+								type:sys
+							},
+							dataType: "json",
+							success: function(data){
+								if(data.status=="true"){
+									that.isimg = 1;
+									var result = that.userData;
+									result.img = data.img;
+									result.id = data.id;
+									result.total = 0;
+									that.imginfo = result;
+									var html = template('works',result);
+									$(".page-3 .result-box").html(html);
+									$(".page-2").hide();
+									$(".page-3").show();
+									that.curPage = 3;
+									$(".page-3 .back").attr("data-target",1);
+									$("body").off("touchmove");
+								}else{
+									alert(data.msg)
+								}
+								$(".layer").removeClass("show");
+							}
+						})
+                    }  
+               	});
 				
-				alert(dataUrl)
+				/*var dataUrl = $("#canvasMain")[0].toDataURL("image/png");
 				
                	$.ajax({
                		url : 'http://www.huihaicenter.com/api/zjz2/api.php?action=img',
@@ -462,7 +498,7 @@ $(function(){
 						}
 						$(".layer").removeClass("show");
 					}
-				})
+				})*/
         	})
         }
     }
