@@ -285,6 +285,7 @@ $(function(){
         				var html = template('works',that.imginfo);
 						$(".page-3 .result-box").html(html);
         			}
+        			$(".page-3 .back").attr("data-target",1);
         			$(".page-1").hide();
 	        		$(".page-3").show();
 		        	that.curPage = 3;
